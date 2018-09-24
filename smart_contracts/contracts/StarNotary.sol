@@ -11,53 +11,41 @@ contract StarNotary is ERC721 {
         string story;
     }
 
-    /*
+    
     struct Coordinators {
         string dec;
         string mag;
         string cent;
-    }*/
+    }
 
-    mapping(uint256 => Star) public tokenIdToStarInfo; 
-    //uint256[] public allStars;
+    mapping(uint256 => Star) public tokenIdToStar; 
+    uint256[] public allStars;
     mapping(uint256 => uint256) public starsForSale;
-   // uint256[] public starsAvailable;
+    uint256[] public starsAvailable;
+    mapping(uint256 => Coordinators) public tokenIdToCoordinates;
+    mapping(uint256 => address) public tokenIdToOwners;
 
-    function createStar(string _name, string _story, uint256 _tokenId, string dec, string mag, string cent, string story) public { 
-
-        Star memory newStar = Star(_name, _story);
-
-        tokenIdToStarInfo[_tokenId] = newStar;
-        //allStars.push(_tokenId);
-
-        _mint(msg.sender, _tokenId);
-    }
-
-    function getName(uint256 _tokenId) public returns (string){
-        Star memory star =  tokenIdToStarInfo[_tokenId];
-        return (star.name);
-    }
-
-    /*
     function createStar(string _name, uint256 _tokenId, string dec, string mag, string cent, string story) public { 
-        require(uniqueCoords(dec, mag, cent));
+        require(checkIfStarExist(dec, mag, cent));
+
+        tokenIdToOwners[_tokenId] = msg.sender;
 
         Coordinators memory coords = Coordinators(dec, mag, cent);
 
-        Star memory newStar = Star(_name, story, coords);
+        Star memory newStar = Star(_name, story);
 
-        tokenIdToStarInfo[_tokenId] = newStar;
+        tokenIdToStar[_tokenId] = newStar;
+        tokenIdToCoordinates[_tokenId] = coords;
         allStars.push(_tokenId);
 
         _mint(msg.sender, _tokenId);
-    }*/
+    }
 
-/*
-    function uniqueCoords(string dec, string mag, string cent) private returns (bool) {
-        for(uint i=0; i<allStars.length; i++){
-            Star next = tokenIdToStarInfo[allStars[i]];
-            Coordinators nextCoords = next.coords;
-            if(equal(nextCoords.dec, dec) && equal(nextCoords.mag, mag) && equal(nextCoords.cent, cent)){
+    function checkIfStarExist(string dec, string mag, string cent) private returns (bool) {
+        for(uint i = 0; i < allStars.length; i++){
+            uint256 next = allStars[i];
+            Coordinators coords = tokenIdToCoordinates[next];
+            if(equal(coords.dec, dec) && equal(coords.mag, mag) && equal(coords.cent, cent)){
                 return false;
             }
         }
@@ -71,7 +59,7 @@ contract StarNotary is ERC721 {
         }else {
             return keccak256(a) == keccak256(b);
         }
-    }*/
+    }
 
 
 
@@ -97,4 +85,14 @@ contract StarNotary is ERC721 {
             msg.sender.transfer(msg.value - starCost);
         }
     }
+ 
+    function tokenIdToStarInfo(uint _tokenId)public view returns (string name, string story, string cent, string dec, string mag) {
+        Star star = tokenIdToStar[_tokenId];
+        Coordinators coords = tokenIdToCoordinates[_tokenId];
+
+        return (star.name, star.story, coords.cent, coords.dec, coords.mag);
+
+    }
+
+    
 }
