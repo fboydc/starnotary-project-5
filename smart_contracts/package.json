@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "openzeppelin-solidity": "2.0.0-rc.1"
+    "openzeppelin-solidity": "2.0.0-rc.1",
+    "truffle-contract": "^3.0.6",
+    "truffle-hdwallet-provider": "0.0.6"
   }
 }

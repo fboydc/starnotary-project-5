@@ -11,8 +11,9 @@
  *     gasPrice: 10000000000,
  *   },
  */
+var HDWalletProvider = require("truffle-hdwallet-provider");
 
-var mnemonic = "curve wife spend deal legend style slight eyebrow team wrap win income";
+var mnemonic = "credit bacon legend trend work motion thunder target buddy caution settle firm";
 
 module.exports = {
   networks: {
@@ -23,8 +24,11 @@ module.exports = {
     },
     rinkeby: {
       provider: function(){
-        return 
-      }
+        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/9f7c8311434c47648bb4bf8898927aad")
+      },
+      network_id: 4,
+      gas: 4500000,
+      gasPrice: 10000000000
     }
   }
 
