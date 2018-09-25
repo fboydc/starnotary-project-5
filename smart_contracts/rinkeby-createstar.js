@@ -9321,19 +9321,7 @@ const abi = [
 
 ];
 
-var StarNotary = new web3.eth.contract(abi)
-var starNotary = StarNotary.at(contractAddress);
-
-
-starNotary.methods.createStar('Zratha', "00023123", "dec_123", "mag_309", "ra_010.107", "Deposits of element zero appears to have originated with the destruction of a large starship, though this is difficult to confirm.", {from: "0x9bd17297db8e60FaC1BBB9EC82bcdC61e57AEED4", gasPrice:60000, gas: 100000, value: 10000}).then((receipt) => {
-  console.log("receipt", receipt);
-})
-
-
-
-
-
-
-
-
+var starNotary = new web3.eth.Contract(abi, contractAddress);
+console.log(starNotary.methods);
+//starNotary.methods.createStar('Zratha', "00023123", "dec_123", "mag_309", "ra_010.107", "Deposits of element zero appears to have originated with the destruction of a large starship, though this is difficult to confirm.").send({from: "0x9bd17297db8e60FaC1BBB9EC82bcdC61e57AEED4", gasPrice:60000, gas: 100000, value: 10000});
 
