@@ -94,5 +94,10 @@ contract StarNotary is ERC721 {
 
     }
 
+
+    function allStarsLength()public view returns(uint256){
+        return allStars.length;
+    }
+
     
 }

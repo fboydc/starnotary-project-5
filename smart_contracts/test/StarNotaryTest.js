@@ -97,6 +97,17 @@ contract('StarNotary', accounts => {
             assert.equal(star[4], starInfo[4]);
         })
 
+    })
 
+    describe('testing for correct number of stars', () => {
+        let user1 = accounts[0]
+        beforeEach(async function(){
+            await this.contract.createStar('awesome Star!', 1, "dec_123", "mag_309", "ra_010.107", "I love my wonderful star", {from: user1});
+            await this.contract.createStar('another Star!', 2, "dec_020", "mag_550", "ra_09.123", "My super star", {from: user1});
+        })
+        
+        it('gets the correct number of stars', async function(){
+            assert.equal(await this.contract.allStarsLength(), 2);
+        })
     })
 })
