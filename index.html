@@ -567,12 +567,13 @@
             getStarLength().then((num_of_stars)=>{
                 getAllStarId(num_of_stars).then((result)=>{
                     console.log("star Ids", result);
-                        alert(result.length);
+
+                    /*   // alert(result.length);
                     getAllStarData(result).then(stars=>{
                         getStarsCoords(stars).then(stars=>{
                             generateStarTable(stars);
                         })
-                    })
+                    })*/
                 })
             });
             
@@ -666,6 +667,12 @@
             function generateStarTable(stars){
                 for(let i=0; i<stars.length; i++){
                     document.getElementById("table_body").innerHTML = "<tr>"+"<td>"+stars[i].id+"</td>"+"<td>"+stars[i].name+"</td>"+"<td>"+stars[i].story+"</td>"+"<td>"+stars[i].dec+"</td>"+"<td>"+stars[i].mag+"</td>"+"<td>"+stars[i].cent+"</td>"+"</tr>";
+                }
+            }
+
+            function generateStarIdHTMLList(starIds){
+                for(let i=0; i<starIds.length; i++){
+                    document.getElementById("table_id_list").innerHTML = "<tr>"+"<td>"+stars[i].id+"</td>"+"<td>"+stars[i].name+"</td>"+"<td>"+stars[i].story+"</td>"+"<td>"+stars[i].dec+"</td>"+"<td>"+stars[i].mag+"</td>"+"<td>"+stars[i].cent+"</td>"+"</tr>";
                 }
             }
             
