@@ -1,14 +1,26 @@
+@font-face {
+    font-family: masseffect;
+    src: url('./fonts/me123.ttf');
+}
 html, body {
     height: 100%;
 }
 
 h1 {
-    color: #2176FF;
+    color: #FFF;
+    font-family: masseffect;
+}
+
+a {
+    text-decoration: none;
+    color: #BC3E3E;
 }
 body {
-    background-color:#F0F0F0;
+    font-family: masseffect;
+    color: #fff;
+    background-image: url('./img/universe.jpg');
+    background-size: cover;
     padding: 2em;
-    font-family: 'Raleway','Source Sans Pro', 'Arial';
     margin: 0;
     padding: 0;
     width: 100%;
@@ -22,9 +34,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 100%;
     height: 100%;
-    background-color: #31393C;
 }
 
 button {
@@ -34,12 +45,137 @@ button {
 }
 
 #star_list{
-    width: 30%;
+    width: 33%;
     height: 30%;
     list-style: none;
-    background-color: greenyellow;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px;
+    box-sizing: border-box;
 }
+
+#list_title {
+    margin-bottom: 10px;
+}
+.star_id {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    min-height: 50px;
+    width: 250px;
+    background-color: #f8eded;
+    text-align: center;
+    border: 1px solid #000;
+}
+
+.button_link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.button_link:hover {
+    background-color: #BC3E3E;
+    color: #f8eded;
+}
+
+.row {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+#star_info{
+    width:33%;
+    height: 50%;
+
+}
+
+#star_story{
+    text-align: justify;
+}
+
+.red-text {
+    color: #BC3E3E;
+}
+
+#new_star_menu{
+    width: 33%;
+    margin-left: 35px;
+}
+
+.form_row {
+    width: 100%;
+    display: flex;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.form_label {
+    width: 50%;
+}
+
+input {
+    height: 20px;
+}
+
+.form_row_textarea {
+    width: 100%;
+}
+
+#star_story_input {
+    width: 80%;
+    height: 250px;
+}
+
+.spinner {
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    display: none;
+}
+
+.double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
+  }
+  
+  @keyframes sk-bounce {
+    0%, 100% { 
+      transform: scale(0.0);
+      -webkit-transform: scale(0.0);
+    } 50% { 
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+    }
+  }
+
+  #create_star_button {
+      font-family: masseffect;
+      background-color: #FFF;
+      border: 1px solid #000;
+  }

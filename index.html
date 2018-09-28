@@ -8,23 +8,74 @@
 
         <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
         <script src="smart_contracts/Star.js"></script>
+        
     </head>
 
     <body>
         <div class="container">
 
             <h1>Star Notary System - Buy or Create a Star with Ether</h1>
-
-            <ul id="star_list">
-                <li><strong>STAR IDS</strong></li>
-            </ul>
-                
-            
+            <div class="row">
+                <ul id="star_list">
+                    <li id="list_title"><strong>STAR IDS:</strong></li>
+                </ul>
+                <div id="star_info">
+                    <p>Name: <span id="star_name" class="red-text">NO STAR SELECTED</span></p>
+                    <p id="star_story"></p>
+                    <p>
+                        <p><strong id="coords_title"></strong></p>
+                        <p id="star_dec" class="red-text"></p>
+                        <p id="star_mag" class="red-text"></p>
+                        <p id="star_cent" class="red-text"></p>
+                    </p>                 
+                </div>
+                <div id="new_star_menu">
+                        <p>Create new Star</p>
+                        <div class="form_row">
+                            <label for="star_id_input" class="form_label">ID:</label>
+                            <input type="text" name="star_id_input" id="star_id_input">
+                        </div>
+                        <div class="form_row">
+                            <label for="star_name_input" class="form_label">Star Name:</label>
+                            <input type="text" name="star_name_input" id="star_name_input">
+                        </div>
+                        <div class="form_row">
+                                <label for="star_dec_input" class="form_label">Star Dec:</label>
+                                <input type="text" name="star_dec_input" id="star_dec_input">
+                        </div>
+                        <div class="form_row">
+                                <label for="star_mag_input" class="form_label">Star Mag:</label>
+                                <input type="text" name="star_mag_input" id="star_mag_input">
+                        </div>
+                        <div class="form_row">
+                                <label for="star_mag_cent" class="form_label">Star Cent:</label>
+                                <input type="text" name="star_mag_cent" id="star_cent_input">
+                        </div>
+                        <div class="form_row">
+                            <label for="star_story_input" class="form_label">Star Story:</label>
+                        </div>
+                        <div class="form_row_textarea">
+                            <textarea type="text" name="star_story_input" id="star_story_input"></textarea>
+                        </div>
+                        <div class="form_row">
+                            <button id="create_star_button" onclick="createStar();">Create</button>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="spinner" id="spinner">
+                            <div class="double-bounce1"></div>
+                            <div class="double-bounce2"></div>
+                    </div>
+            </div>    
+            <p>
+                NOTE: Rinkeby may take some time before transaction is confirmed. Therefor, it may not be reflected immediately
+            </p>
             <!--<button id="claim-button" onclick="claimButtonClicked()">Claim Star</button> -->
         </div>
 
         <script>    
-         
+            console.log("hello");
             if(typeof web3 != 'undefined') { 
                 web3 = new Web3(web3.currentProvider) // what Metamask injected 
             } else {
@@ -555,8 +606,12 @@
             // Grab the contract at specified deployed address with the interface defined by the ABI
             var starNotary = StarNotary.at('0x54ee0ed5Cb936e579c22C747A79e606d8eE0eB4E');
 
+            
             getStarLength().then((num_of_stars)=>{
+                   
+                console.log("results", num_of_stars);
                 getAllStarId(num_of_stars).then((result)=>{
+                    
                     console.log("result size", result.length);
                     generateStarIdHTMLList(result);
 
@@ -660,19 +715,77 @@
 
 
             function generateStarIdHTMLList(starIds){
-                
+                console.log("generating HTML");
                 for(let i=0; i<starIds.length; i++){
                     var node = document.createElement("li");
+                    node.className = "star_id";
                     var anchor = document.createElement("a");
                     anchor.href = "#";
-
+                    anchor.className="button_link";
+                    anchor.onclick = ()=>{ getStarInfo(starIds[i])};
                     var textNode = document.createTextNode(starIds[i]);
                     anchor.appendChild(textNode);
                     node.appendChild(anchor);
                     document.getElementById("star_list").appendChild(node);
                 }
             }
+
+
+            function getStarInfo(starId){
+                starNotary.tokenIdToStarInfo(starId, (error, result)=>{
+                    if(!error){
+                        document.getElementById("coords_title").innerText = "Coordinates";
+                        document.getElementById("star_name").innerText = result[0];
+                        document.getElementById("star_story").innerText = result[1];
+                        document.getElementById("star_dec").innerText = result[2];
+                        document.getElementById("star_mag").innerText = result[3];
+                        document.getElementById("star_cent").innerText = result[4];
+                    }else{
+                        alert("there has been an error:", error);
+                    }
+                })
+            }
             
+
+            function createStar(){
+                
+                let id = document.getElementById("star_id_input").value;
+                let name = document.getElementById("star_name_input").value;
+                let dec = document.getElementById("star_dec_input").value;
+                let mag = document.getElementById("star_mag_input").value;
+                let cent = document.getElementById("star_cent_input").value;
+                let story = document.getElementById("star_story_input").value;
+                let spinner = document.getElementById("spinner");
+                spinner.style.display = "block";
+                
+                if(checkInput(id, name, dec, mag, cent, story)){
+                    starNotary.createStar(name, id, dec, mag, cent, story, (error, result)=>{
+                        if(!error){
+                             spinner.style.display = "none";
+                             window.location.reload();
+                        }else{
+                            console.log("error");
+                        }
+                    })
+                   
+                }else{
+                    spinner.style.display = "none";
+                    alert("ERROR: EMPTY REQUIRED FIELDS");
+                }
+                
+
+            }
+
+            function checkInput(id, name, dec, mag, cent, story){
+                
+
+                if(id === '' || name === '' || dec === '' || mag === '' || cent === '' || story === '')
+                    return false;
+                else
+                    return true;
+
+
+            }
 
 
 
