@@ -12,23 +12,14 @@
 
     <body>
         <div class="container">
-            <h1>Star Notary</h1>
 
-            <table>
-                <tr>
-                    <th>Star Id</th>
-                    <th>Name</th>
-                    <th>Story</th>
-                    <th>Dec</th>
-                    <th>Mag</th>
-                    <th>Cent</th>
-                </tr>
-                <tbody id="table_body">
-                    
-                </tbody>
-            </table>
+            <h1>Star Notary System - Buy or Create a Star with Ether</h1>
+
+            <ul id="star_list">
+                <li><strong>STAR IDS</strong></li>
+            </ul>
                 
-            </div>
+            
             <!--<button id="claim-button" onclick="claimButtonClicked()">Claim Star</button> -->
         </div>
 
@@ -566,9 +557,10 @@
 
             getStarLength().then((num_of_stars)=>{
                 getAllStarId(num_of_stars).then((result)=>{
-                    console.log("star Ids", result);
+                    console.log("result size", result.length);
+                    generateStarIdHTMLList(result);
 
-                    /*   // alert(result.length);
+                    /*
                     getAllStarData(result).then(stars=>{
                         getStarsCoords(stars).then(stars=>{
                             generateStarTable(stars);
@@ -576,10 +568,13 @@
                     })*/
                 })
             });
+
+           
             
 
-             function getStarLength(){
-               return new Promise((resolve, reject)=>starNotary.allStarsLength(function(error, result){
+            function getStarLength(){
+                
+              return new Promise((resolve, reject)=>starNotary.allStarsLength(function(error, result){
                     if(!error){
                         resolve(result.toNumber())
                     } else {
@@ -663,16 +658,18 @@
                 });
             }
 
-            
-            function generateStarTable(stars){
-                for(let i=0; i<stars.length; i++){
-                    document.getElementById("table_body").innerHTML = "<tr>"+"<td>"+stars[i].id+"</td>"+"<td>"+stars[i].name+"</td>"+"<td>"+stars[i].story+"</td>"+"<td>"+stars[i].dec+"</td>"+"<td>"+stars[i].mag+"</td>"+"<td>"+stars[i].cent+"</td>"+"</tr>";
-                }
-            }
 
             function generateStarIdHTMLList(starIds){
+                
                 for(let i=0; i<starIds.length; i++){
-                    document.getElementById("table_id_list").innerHTML = "<tr>"+"<td>"+stars[i].id+"</td>"+"<td>"+stars[i].name+"</td>"+"<td>"+stars[i].story+"</td>"+"<td>"+stars[i].dec+"</td>"+"<td>"+stars[i].mag+"</td>"+"<td>"+stars[i].cent+"</td>"+"</tr>";
+                    var node = document.createElement("li");
+                    var anchor = document.createElement("a");
+                    anchor.href = "#";
+
+                    var textNode = document.createTextNode(starIds[i]);
+                    anchor.appendChild(textNode);
+                    node.appendChild(anchor);
+                    document.getElementById("star_list").appendChild(node);
                 }
             }
             

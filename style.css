@@ -1,20 +1,45 @@
+html, body {
+    height: 100%;
+}
+
+h1 {
+    color: #2176FF;
+}
 body {
     background-color:#F0F0F0;
     padding: 2em;
     font-family: 'Raleway','Source Sans Pro', 'Arial';
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+    
 }
 .container {
-    width: 50%;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 100%;
+    background-color: #31393C;
 }
-.bold { 
-    font-weight: bolder;
-}
-.row {
-    margin-bottom:10px;
-}
+
 button {
     margin: 2em 0;
     padding: 1em 4em;
     display:block;
+}
+
+#star_list{
+    width: 30%;
+    height: 30%;
+    list-style: none;
+    background-color: greenyellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
 }
