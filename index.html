@@ -14,13 +14,18 @@
     <body>
         <div class="container">
 
-            <h1>Star Notary System - Buy or Create a Star with Ether</h1>
+            <h1>Stars and Planets Notary System</h1>
             <div class="row">
-                <ul id="star_list">
+                <!--<ul id="star_list">
                     <li id="list_title"><strong>STAR IDS:</strong></li>
-                </ul>
+                </ul>-->
+                <div id="star_search">
+                    <p>Search by Star/Planet ID</p>
+                    <input type="text" name="star_id_search" id="star_id_search">
+                    <button id="star_search_button">SEARCH</button>
+                </div>
                 <div id="star_info">
-                    <p>Name: <span id="star_name" class="red-text">NO STAR SELECTED</span></p>
+                    <p>Name: <span id="star_name" class="red-text">Star Results</span></p>
                     <p id="star_story"></p>
                     <p>
                         <p><strong id="coords_title"></strong></p>
@@ -68,10 +73,6 @@
                             <div class="double-bounce2"></div>
                     </div>
             </div>    
-            <p>
-                NOTE: Rinkeby may take some time before transaction is confirmed. Therefor, it may not be reflected immediately
-            </p>
-            <!--<button id="claim-button" onclick="claimButtonClicked()">Claim Star</button> -->
         </div>
 
         <script>    
@@ -607,7 +608,7 @@
             var starNotary = StarNotary.at('0x54ee0ed5Cb936e579c22C747A79e606d8eE0eB4E');
 
             
-            getStarLength().then((num_of_stars)=>{
+            /*getStarLength().then((num_of_stars)=>{
                    
                 console.log("results", num_of_stars);
                 getAllStarId(num_of_stars).then((result)=>{
@@ -620,13 +621,13 @@
                         getStarsCoords(stars).then(stars=>{
                             generateStarTable(stars);
                         })
-                    })*/
+                    })
                 })
-            });
+            });*/
 
            
             
-
+            /*
             function getStarLength(){
                 
               return new Promise((resolve, reject)=>starNotary.allStarsLength(function(error, result){
@@ -637,8 +638,10 @@
                     }
                 }));
 
-            }
+            }*/
 
+
+            /*
             function getAllStarId(length){
                 let starId = [];
                 return new Promise((resolve, reject)=>{
@@ -658,8 +661,8 @@
                     }
                     
                 })  
-            }
-
+            }*/
+    /*
             function getAllStarData(starIds){
                 let stars = [];
                 return new Promise((resolve, reject) => {
@@ -677,9 +680,9 @@
                         })
                     }
                 });
-            }
+            }*/
             
-
+            /*
             function getStarsCoords(stars){
                 return new Promise((resolve, reject)=>{
                     for(let i=0; i<stars.length; i++){
@@ -698,9 +701,9 @@
                         })
                     }
                 })
-            }
+            }*/
 
-
+            /*
             function getStarData(starId){
                 return new Promise((resolve, reject)=>{
                     starNotary.tokenIdToStar(starId, function(error, result){
@@ -711,9 +714,9 @@
                         }
                     });
                 });
-            }
+            }*/
 
-
+            /*
             function generateStarIdHTMLList(starIds){
                 console.log("generating HTML");
                 for(let i=0; i<starIds.length; i++){
@@ -728,7 +731,7 @@
                     node.appendChild(anchor);
                     document.getElementById("star_list").appendChild(node);
                 }
-            }
+            }*/
 
 
             function getStarInfo(starId){
@@ -770,7 +773,7 @@
                    
                 }else{
                     spinner.style.display = "none";
-                    alert("ERROR: EMPTY REQUIRED FIELDS");
+                    alert("ERROR: REQUIRED FIELDS ARE EMPTY");
                 }
                 
 

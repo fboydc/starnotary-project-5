@@ -38,25 +38,23 @@ body {
     height: 100%;
 }
 
-button {
-    margin: 2em 0;
-    padding: 1em 4em;
-    display:block;
-}
 
-#star_list{
+
+#star_search{
     width: 33%;
-    height: 30%;
-    list-style: none;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    margin-left: 20px;
 }
 
-#list_title {
-    margin-bottom: 10px;
+#star_id_search {
+    width: 250px;
 }
+
+
 .star_id {
     display: flex;
     align-items: center;
@@ -174,8 +172,10 @@ input {
     }
   }
 
-  #create_star_button {
+ button {
+      padding: 10px;
       font-family: masseffect;
       background-color: #FFF;
       border: 1px solid #000;
+      margin-top: 20px;
   }
