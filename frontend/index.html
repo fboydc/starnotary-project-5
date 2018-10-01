@@ -74,6 +74,8 @@
         </div>
 
         <script>    
+
+
             if(typeof web3 != 'undefined') { 
                 web3 = new Web3(web3.currentProvider) // what Metamask injected 
             } else {
@@ -83,7 +85,6 @@
 
             // The default (top) wallet account from a list of test accounts 
             web3.eth.defaultAccount = web3.eth.accounts[0];
-            console.log(web3.eth.defaultAccount);
             // The interface definition for your smart contract (the ABI) 
             var StarNotary = web3.eth.contract(
                 [
@@ -604,132 +605,12 @@
             // Grab the contract at specified deployed address with the interface defined by the ABI
             var starNotary = StarNotary.at('0x54ee0ed5Cb936e579c22C747A79e606d8eE0eB4E');
 
-            
-            /*getStarLength().then((num_of_stars)=>{
-                   
-                console.log("results", num_of_stars);
-                getAllStarId(num_of_stars).then((result)=>{
-                    
-                    console.log("result size", result.length);
-                    generateStarIdHTMLList(result);
-
-                    /*
-                    getAllStarData(result).then(stars=>{
-                        getStarsCoords(stars).then(stars=>{
-                            generateStarTable(stars);
-                        })
-                    })
-                })
-            });*/
-
-           
-            
-            /*
-            function getStarLength(){
-                
-              return new Promise((resolve, reject)=>starNotary.allStarsLength(function(error, result){
-                    if(!error){
-                        resolve(result.toNumber())
-                    } else {
-                        reject(error);
-                    }
-                }));
-
-            }*/
-
-
-            /*
-            function getAllStarId(length){
-                let starId = [];
-                return new Promise((resolve, reject)=>{
-                    for(let i=0; i<length; i++){
-                        starNotary.allStars(i, function(error, result){
-                            if(!error){
-                                starId.push(result.toNumber());
-                                if(i === length - 1){
-                                    resolve(starId);
-                                }
-                                    
-                            }else{
-                                console.log("error");
-                            }
-                        })
-                       
-                    }
-                    
-                })  
-            }*/
-    /*
-            function getAllStarData(starIds){
-                let stars = [];
-                return new Promise((resolve, reject) => {
-                    for(let i=0; i < starIds.length; i++){
-                        starNotary.tokenIdToStar(starIds[i], function(error, result){
-                            if(!error){
-                                stars.push(new Star(starIds[i], result[0], result[1]))
-                                if(i === starIds.length - 1){
-                                    resolve(stars);
-                                }
-                                    
-                            }else{
-                                console.log(error);
-                            }
-                        })
-                    }
-                });
-            }*/
-            
-            /*
-            function getStarsCoords(stars){
-                return new Promise((resolve, reject)=>{
-                    for(let i=0; i<stars.length; i++){
-                        starNotary.tokenIdToCoordinates(stars[i].id, function(error, result){
-                            if(!error){
-                                stars[i].dec = result[0];
-                                stars[i].mag = result[1];
-                                stars[i].cent = result[2];
-                                if(i == stars.length - 1){
-                                    resolve(stars);
-                                }
-                                    
-                            }else {
-                                console.log(error)
-                            }
-                        })
-                    }
-                })
-            }*/
-
-            /*
-            function getStarData(starId){
-                return new Promise((resolve, reject)=>{
-                    starNotary.tokenIdToStar(starId, function(error, result){
-                        if(!error){
-                            resolve(result);
-                        }else {
-                            reject(error);
-                        }
-                    });
-                });
-            }*/
-
-            /*
-            function generateStarIdHTMLList(starIds){
-                console.log("generating HTML");
-                for(let i=0; i<starIds.length; i++){
-                    var node = document.createElement("li");
-                    node.className = "star_id";
-                    var anchor = document.createElement("a");
-                    anchor.href = "#";
-                    anchor.className="button_link";
-                    anchor.onclick = ()=>{ getStarInfo(starIds[i])};
-                    var textNode = document.createTextNode(starIds[i]);
-                    anchor.appendChild(textNode);
-                    node.appendChild(anchor);
-                    document.getElementById("star_list").appendChild(node);
-                }
-            }*/
-
+            /*************************************************************
+            Name: checkSearchInput
+            Description:
+            Helper method used in getStarInfo. Checks for empty values in the search star by id input. This 
+            allows for no empty value searches.
+            **************************************************************/
             function checkSearchInput(value){
                 if(value === ''){
                     return false;
@@ -737,6 +618,11 @@
                 return true;
             }
 
+            /*************************************************************
+            Name: removeHTML
+            Description:
+            Cleanup function. Removes any HTML in our 'results' div.
+            **************************************************************/
             function removeHTML(){
                 document.getElementById("coords_title").innerText = "";
                 document.getElementById("star_name").innerText = "";
@@ -746,6 +632,11 @@
                 document.getElementById("star_cent").innerText = "";
             }
             
+            /*************************************************************
+            Name: inputMask
+            Description:
+            Used for the search bar, enforces only numbers.
+            **************************************************************/
             function inputMask(evt){
                 var charCode = (evt.which) ? evt.which : event.keyCode
                 if (charCode > 31 && (charCode < 48 || charCode > 57)){
@@ -754,7 +645,14 @@
                     
                 return true;
             }
+            
 
+            /*************************************************************
+            Name: getStarInfo
+            Description:
+            Makes a call to the StarNotary contract with the provided star ID
+            as a search criteria, changes the HTML accordingly.
+            **************************************************************/
             function getStarInfo(){
                 let input = document.getElementById("star_id_search").value;
                 if(checkSearchInput(input)){
@@ -784,7 +682,12 @@
                 
             }
             
-
+            /*************************************************************
+            Name: createStar
+            Description:
+            Creates a new star with the provided form input; changes the HTML
+            accordingly.
+            **************************************************************/
             function createStar(){
                 
                 let id = document.getElementById("star_id_input").value;
@@ -814,6 +717,12 @@
 
             }
 
+            /*************************************************************
+            Name: checkNewInput
+            Description:
+            Helper method for createStar. Verifies that all fields in the create
+            star form are not empty.
+            **************************************************************/
             function checkNewInput(id, name, dec, mag, cent, story){
                 
 
@@ -826,70 +735,6 @@
             }
 
 
-
-            /*
-            console.log(starNotary.allStars(0, (error, result)=>{
-                console.log("resolved", result.toNumber());
-            }));*/
-
-            
-
-            /*
-            starNotary.tokenIdToStarInfo("00023123", function(error, result){
-                if(!error){
-                    console.log("star story: " + result[1]);
-                } else {
-                    console.log(error);
-                }
-            })*/
-            /*
-
-            
-            // Get and display star name
-            /*
-            starNotary.starName(function (error, result) {
-                if (!error) {
-                    document.getElementById('star-name').innerText = result
-                } else { 
-                    console.log(error);
-                }
-            });
-
-            // Get and display star owner
-            starNotary.starOwner(function (error, result) {
-                if (!error) {
-                    document.getElementById('star-owner').innerText = result
-                } else { 
-                    console.log(error);
-                }
-            });*/
-
-            // Enable claim button being clicked
-            /*
-            function claimButtonClicked() { 
-                web3.eth.getAccounts(function(error, accounts) { 
-                    if (error) { 
-                        console.log(error)
-                        return
-                    }
-                    var account = accounts[0]
-                    starNotary.claimStar(function (error, result) {
-                        if (!error) {
-                            var starClaimedEvent = starNotary.starClaimed({from: account});
-                            starClaimedEvent.watch(function(error, result) {
-                                if (!error) {
-                                    location.reload();
-                                } else {
-                                    console.log('watching for star claimed event is failing');
-                                }
-                            });
-                        } else { 
-                            console.log(error);
-                        }
-                    });
-                   
-                })
-            }*/
         </script>
     </body>
 </html>

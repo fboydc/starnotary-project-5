@@ -2,7 +2,7 @@
 This project shows a simple web application that interacts with a deployed smart contract in the Rinkeby network. Users can search and create planet and stars present in the ethereum blockchain. Currently only searching and creating stars is supported in the front-end application. However, the depoyed contract does support searching, creating, purchasing, and sale of stars and planets. I'm also working on a node API to support all above described functionalities.
 
 # Installation - Before you start
-Before we can do anything with this project, we must install all packaged dependencies. For this you will need to install node package *manager:https://nodejs.org/en/download/*. If you already have node, simply `cd` into the root folder of the application and run the command `npm install`. All dependencies should be installed sequentially and you are all set.
+Before we can do anything with this project, we must install all packaged dependencies. For this you will need to install node package *manager:https://nodejs.org/en/download/*. If you already have node, simply `cd` into the root folder of the application and run the command `npm install`. All dependencies should be installed sequentially.
 
 # Where to start ? 
 **If you just want to play with the application, skip all the testing, contract deployment, and API endpoints then:** 
@@ -42,7 +42,7 @@ If you want to run some of the functions in the smart contract, you can use remi
 **Testing the contract functionality**
 For testing purposes, we are using the *Truffle* framework, found at https://truffleframework.com/docs/ganache/quickstart. 
 
-NOTE: Only implemented methods were tested, ERC721 methods are not tested, namely: mint(), approve(), safeTransferFrom(), SetApprovalForAll(), getApproved(), isApprovedForAll(), ownerOf() as they are inherited from the zeppelin framework.
+NOTE: Only implemented methods were tested, ERC721 methods are not tested, namely: mint(), approve(), safeTransferFrom(), SetApprovalForAll(), getApproved(), isApprovedForAll(), ownerOf() as they are inherited from the Open Zeppelin framework.
 
 1. download and install ganache-cli: https://github.com/trufflesuite/ganache-cli. This will allow you to run a local blockchain network with a single local node. 
 2. open a separate terminal window and run ganache-cli: `ganache-cli`. 
