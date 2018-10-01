@@ -1,5 +1,5 @@
 const Web3 = require('web3');
-//const _CONTRACT_ADDRESS = "0x54ee0ed5Cb936e579c22C747A79e606d8eE0eB4E";
+const _CONTRACT_ADDRESS = "0x54ee0ed5Cb936e579c22C747A79e606d8eE0eB4E";
 const _RINKEBY_URL = "https://rinkeby.infura.io/v3/06ec1ae219754b23a2bed3fea410fec5";
 const _ACCOUNT_ADDRESS = "0x9bd17297db8e60FaC1BBB9EC82bcdC61e57AEED4";
 
@@ -14,8 +14,6 @@ if(typeof web3 != 'undefined') {
     web3 = new Web3(new Web3.providers.HttpProvider(_RINKEBY_URL));
 }
 
-
-console.log(web3.eth.accounts[0]);
 //web3.eth.getAccounts((error, accounts)=>console.log("accounts: "+ accounts));
 
 /*web3.eth.defaultAccount = web3.eth.getAccounts((numer)=>{
@@ -24,7 +22,7 @@ console.log(web3.eth.accounts[0]);
 
 
 
-var StarNotary = web3.eth.contract(
+var StarNotary = new web3.eth.Contract(
     [
             {
                 "anonymous": false,
@@ -541,16 +539,25 @@ var StarNotary = web3.eth.contract(
         ]
 );
 // Grab the contract at specified deployed address with the interface defined by the ABI
-//StarNotary.options.address = _CONTRACT_ADDRESS;
+StarNotary.options.address = _CONTRACT_ADDRESS;
+
 
 
 module.exports = {
 
+    /*****************************************************************
+    *Type: method
+    *Name: getStarById
+    *Parameters: The star id - <int>
+    *Returns: A Promise object, which will resolve to a json object.
+    *Description: 
+    *Retrieves the specified star data from the contract.
+    *****************************************************************/
     getStarById: (starId)=>{
         return new Promise((resolve, reject)=>{
-            console.log("star id", starId);
+            
             StarNotary.methods.tokenIdToStarInfo(starId).call().then((result)=>{
-                console.log("id result", result);
+                console.log("id result");
                 if(result[0] === '' && result[1] === '' && result[2] === '' && result[3] === '' && result[4] === ''){
                     resolve("No star/planet found");
                 }else {
@@ -565,9 +572,19 @@ module.exports = {
                 }
                 
             });
+            
+          
         })
            
     },
+
+    /***********************  STILL NOT WORKING *****************
+    *Type: method
+    *Name: createNewStar
+    *Description:
+    *This method is not working as expected, as it still execute
+    *the required transaction for creating a new star.
+    *************************************************************/
 
     createNewStar: (name, id, dec, mag, cent, story)=>{
         return new Promise((resolve, reject)=>{
