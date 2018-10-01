@@ -2,6 +2,7 @@
 create star  TX hash = 0x8720d3510c89b73d639fd9a3d0df12f2252f0fe19d25bc4794873d3fec3891b5
 contract address = 0x54ee0ed5Cb936e579c22C747A79e606d8eE0eB4E
 network = rinkeby
-star1 = "Drantua", 20331, "dec_123", "mag_309", "ra_010.107", "There is an anomaly detected in this star system. When scanned, it is revealed to be Element Zero." - HASH->0x8720d3510c89b73d639fd9a3d0df12f2252f0fe19d25bc4794873d3fec3891b5
+star1 = "Drantua", 20331, "dec_123", "mag_309", "ra_010.107", "There is an anomaly detected in this star system. When scanned, it is revealed to be Element Zero." - HASH->0x8720d3510c89b73d639fd9a3d0df12f2252f0fe19d25bc4794873d3fec3891b5  
 star2 = "Anasa", 19231, "dec_340", "mag_440", "ra_050.301", "There is an anomaly in this system which when scanned reveals a Starship wreckage."
 star3 = "vectra", 4421221, "dec_1123", "mag_009", "ra_787.12", "Vectra is a typical hydrogen-helium gas giant with traces of methane and sodium in its atmosphere. The heat of the star Gorgon is slowly blasting away the gas giant's massive atmosphere, which is visible as a long, dim tail that trails behind the planet." - HASH->0xacbde6e522cc2de18f0cce6818bbf2ddddbb1eab9b9a310e8eb531b161c4ac3c
+planet4 = "Vebinok", 602933321, "dec_444", "mag_055", "ra_933.09", "Vebinok is a small terrestrial world with a thin atmosphere of krypton and xenon. Its frozen surface is mainly composed of carbonaceous material, water ice, and low-density silicates. Rare but concentrated lodes of light metals have been deposited by asteroid impacts." - STAR CREATION (TX) -> 0x7c6f205583f57697dd734618c6b4777f084166e1293e012effbf113be1586537, STARFORSALE (TX) -> 0x91fa19b538d35c503c2da1bb7398767b4ea7fbbc981cd1f180f2c3a0722784fd 
